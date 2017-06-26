@@ -1,0 +1,5 @@
+driver: ${DATABASE_DRIVER:'postgres'}
+host: ${DATABASE_HOST:'127.0.0.1'}
+port: ${DATABASE_POST:5432}
+user: ${DATABASE_USER:'postgres'}
+password: ${DATABASE_PASSWORD:''}

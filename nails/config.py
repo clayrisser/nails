@@ -1,14 +1,17 @@
 import yaml
+import sys
 import os
 import re
+from inspect import getsourcefile
+from os.path import abspath
 
-base_dir = os.path.realpath(os.path.dirname(os.path.realpath(__file__)) + '/../')
-files = os.listdir(os.path.realpath(base_dir + '/config/'))
+base_dir = os.path.dirname(os.path.realpath(os.path.realpath(os.getcwd() + '/' + sys.argv[0])))
+config_files = os.listdir(os.path.realpath(base_dir + '/config/'))
 
 class _Config:
     def __init__(self):
         self.base_dir = base_dir
-        for filename in files:
+        for filename in config_files:
             matches = re.findall(r'^.+(?=\.yml$)', filename)
             if len(matches) > 0:
                 with open(os.path.realpath(base_dir + '/config/' + filename)) as f:
