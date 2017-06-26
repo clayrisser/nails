@@ -1,0 +1,2 @@
+port: ${NAILS_PORT:8805}
+host: ${NAILS_HOST:'127.0.0.1'}

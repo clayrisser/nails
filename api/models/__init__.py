@@ -23,10 +23,9 @@ def get_models():
             models.append(getattr(model_package, model_name))
     return models
 
-def initialize():
+def init():
     db.connect()
-    for model in get_models():
-        model.create_table(True)
+    db.create_tables(get_models(), safe=True)
     db.close()
 
 class BaseModel(Model):

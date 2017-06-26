@@ -1,11 +1,18 @@
-from api import app
+from flask import Flask
+from nailspy import config
+from pydash import _
+import api
+
+app = Flask(__name__)
 
 @app.route('/')
-def index():
-    return 'Hello from Nails.py'
+def route_index():
+    return 'The root'
 
-app.run(
-    host='0.0.0.0',
-    port=8804,
-    debug=True
-)
+if __name__ == '__main__':
+    app.register_blueprint(api.blueprint)
+    app.run(
+        host=config.web['host'],
+        port=config.web['port'],
+        debug=True
+    )
