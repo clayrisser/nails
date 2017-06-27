@@ -1,12 +1,12 @@
 from nails import Nails
 import api
 
-app = Nails(__name__)
+server = Nails(__name__)
 
-@app.route('/')
+@server.route('/')
 def route_index():
-    return 'The root'
+    return 'Hello, Nails.py!'
 
 if __name__ == '__main__':
-    app.register_blueprint(api.blueprint)
-    app.run()
+    server.register_app(api.app)
+    server.run()

@@ -1,5 +1,5 @@
-from nails import Controller
 from api.models import UserModel
+from nails import Controller
 
 class User(Controller):
     def get(self):

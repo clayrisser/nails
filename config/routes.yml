@@ -1,2 +1,0 @@
-'/api/v1/user': user_controller.User
-'/api/v1/users': user_controller.UserList

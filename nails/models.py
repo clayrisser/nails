@@ -8,28 +8,27 @@ import re
 
 db = None
 
-if config.database['driver'] == 'postgres':
+if config['database']['driver'] == 'postgres':
     db = PostgresqlDatabase(
         'postgres',
-        user=config.database['user'],
-        password=config.database['password'],
-        host=config.database['host'],
-        port=config.database['port']
+        user=config['database']['user'],
+        password=config['database']['password'],
+        host=config['database']['host'],
+        port=config['database']['port']
     )
 
-def get_models(path):
-    models = list()
-    for i in os.listdir(path):
-        matches = re.findall(r'.+_model(?=.py$)', i)
+def get_models_list(models):
+    models_list = list()
+    for key in _.keys(models):
+        matches = re.findall(r'.+Model$', key)
         if len(matches) > 0:
-            model_package = import_module('api.models.' + matches[0])
-            model_name = _.upper_first(_.camel_case(matches[0]))
-            models.append(getattr(model_package, model_name))
-    return models
+            models_list.append(getattr(models, matches[0]))
+    return models_list
 
-def init(file, blueprint):
+def init_models(file, blueprint, models):
     db.connect()
-    db.create_tables(get_models(os.path.realpath(os.path.dirname(file) + '/models')), safe=True)
+    models = get_models_list(models)
+    db.create_tables(models, safe=True)
     db.close()
     @blueprint.before_request
     def db_connect():
