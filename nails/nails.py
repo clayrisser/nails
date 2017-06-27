@@ -34,11 +34,11 @@ def init_app(filepath, base, controllers, models):
         )
         init_models(filepath, blueprint, models)
         resource = Api(blueprint)
-        for route, controller_name in config['api']['routes'].iteritems():
+        for route, controller_name in config[app_name]['routes'].iteritems():
             controller_name = controller_name.split('.')
             if (len(controller_name) > 1):
                 resource.add_resource(getattr(getattr(
                     controllers,
                     controller_name[0]
-                ), controller_name[1]), route)
+                ), controller_name[1]), (base + '/' + route).replace('//', '/').replace('//', '/'))
     return blueprint
