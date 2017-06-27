@@ -1,5 +1,7 @@
-from nails import Nails
+from nails import Nails, config
 import api
+
+print(config['debug'])
 
 server = Nails(__name__)
 

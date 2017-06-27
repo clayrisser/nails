@@ -1,5 +1,5 @@
-# driver: ${API_DATABASE_DRIVER:'postgres'}
-# host: ${API_DATABASE_HOST:'127.0.0.1'}
-# port: ${API_DATABASE_POST:5432}
-# user: ${API_DATABASE_USER:'postgres'}
-# password: ${API_DATABASE_PASSWORD:''}
+driver: ${API_DATABASE_DRIVER:'postgres'}
+host: ${API_DATABASE_HOST:'127.0.0.1'}
+port: ${API_DATABASE_POST:5432}
+user: ${API_DATABASE_USER:'postgres'}
+password: ${API_DATABASE_PASSWORD:''}

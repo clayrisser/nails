@@ -1,33 +1,47 @@
-from importlib import import_module
 from nails import config
 from peewee import *
 import datetime
+import imp
 import os
 import pydash as _
 import re
+import sys
 
-db = None
+databases = {}
 
-if config['database']['driver'] == 'postgres':
-    db = PostgresqlDatabase(
-        'postgres',
-        user=config['database']['user'],
-        password=config['database']['password'],
-        host=config['database']['host'],
-        port=config['database']['port']
-    )
+def get_database(app_name):
+    if app_name not in databases:
+        database = config['database']
+        if 'database' in config[app_name] and 'driver' in config[app_name]['database']:
+            database = config[app_name]['database']
+        if database['driver'] == 'postgres':
+            databases[app_name] = PostgresqlDatabase(
+                'postgres',
+                user=database['user'],
+                password=database['password'],
+                host=database['host'],
+                port=database['port']
+            )
+    if app_name not in databases:
+        raise ValueError('Database driver \'' + database['driver'] + '\' does not exist')
+    return databases[app_name]
 
-def get_models_list(models):
+def get_models(app_name):
+    models = list()
     models_list = list()
-    for key in _.keys(models):
-        matches = re.findall(r'.+Model$', key)
+    models_dir = os.path.realpath(config['base_dir'] + '/' + app_name + '/models/')
+    sys.path.append(models_dir)
+    models_import = imp.load_source('models', models_dir + '/__init__.py')
+    for model_name in _.keys(models_import):
+        matches = re.findall(r'.+(?=Model$)', model_name)
         if len(matches) > 0:
-            models_list.append(getattr(models, matches[0]))
-    return models_list
+            models.append(getattr(models_import, model_name))
+    return models
 
-def init_models(file, blueprint, models):
+def init_database(app_name, blueprint):
+    db = get_database(app_name)
     db.connect()
-    models = get_models_list(models)
+    models = get_models(app_name)
     db.create_tables(models, safe=True)
     db.close()
     @blueprint.before_request
@@ -38,7 +52,13 @@ def init_models(file, blueprint, models):
         if not db.is_closed():
             db.close()
 
-class BaseModel(Model):
-    created_at = DateTimeField(default=datetime.datetime.now)
-    class Meta:
-        database = db
+def get_base_model(filepath):
+    app_name = ''
+    matches = re.findall(r'[^\/]+(?=\/models\/[^\/]+_model.pyc?$)', filepath)
+    if len(matches) > 0:
+        app_name = matches[0]
+    class BaseModel(Model):
+        created_at = DateTimeField(default=datetime.datetime.now)
+        class Meta:
+            database = databases[app_name]
+    return BaseModel
