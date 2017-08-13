@@ -1,4 +1,4 @@
-# nails.py _Alpha_
+# nails _Beta_
 
 A python MVC framework built with Flask
 
@@ -22,7 +22,7 @@ Dunno yet
 
 ## Support
 
-Submit an [issue](https://github.com/jamrizzi/nailspy/issues/new)
+Submit an [issue](https://github.com/jamrizzi/nails/issues/new)
 
 
 ## Buy Me Coffee
@@ -43,7 +43,7 @@ A ridiculous amount of coffee was consumed in the process of building this proje
 
 ## License
 
-[MIT License](https://github.com/jamrizzi/nailspy/blob/master/LICENSE)
+[MIT License](https://github.com/jamrizzi/nails/blob/master/LICENSE)
 
 [Jam Risser](https://jamrizzi.com) &copy; 2017
 
@@ -54,6 +54,9 @@ A ridiculous amount of coffee was consumed in the process of building this proje
 
 
 ## Changelog
+
+0.1.0 (2017-08-13)
+* Beta release
 
 0.0.1 (2017-06-25)
 * Alpha release

@@ -1,3 +1,4 @@
-port: ${NAILS_PORT:8804}
-host: ${NAILS_HOST:'127.0.0.1'}
-debug: ${NAILS_DEBUG: true}
+port: ${PORT: 8806}
+host: ${HOST: '0.0.0.0'}
+debug: ${DEBUG: true}
+secret: ${SECRET: 'hellodocker'}
