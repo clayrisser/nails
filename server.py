@@ -1,12 +1,7 @@
-from nails import Nails, config
-import api
+from nails import Nails
+import app
 
-server = Nails(__name__)
-
-@server.route('/')
-def server_index():
-    return 'Hello, Nails.py!'
+server = Nails(app)
 
 if __name__ == '__main__':
-    server.register_app(api.app)
-    server.run()
+    server.start()
