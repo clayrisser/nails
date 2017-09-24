@@ -1,4 +1,6 @@
 from flask import Flask
+from nails import Nailpack
+import routes
 
 # app = Flask(__name__)
 
@@ -6,7 +8,7 @@ from flask import Flask
 # def hello_world():
 #         return 'Hello, World!'
 
-class Nailpack():
+class Nailpack(Nailpack):
     def __init__(self):
         print('constructing')
 
@@ -14,8 +16,8 @@ class Nailpack():
         print('validating')
 
     def configure(self, payload):
-        self.app = Flask(__name__)
-        print('configuring')
+        self.server = Flask(__name__)
+        # routes.register(self.server, self.api.config.routes)
 
     def initialize(self, payload):
         print('initializing')

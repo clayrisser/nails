@@ -7,17 +7,19 @@ class Nails():
         self.app = app
 
     def start(self):
-        for api in self.get_apis():
-            for route in api.config.routes:
-                nailpack.register(api)
-            nailpack.run_event(api, 'validate')
-            nailpack.run_event(api, 'configure')
-            nailpack.run_event(api, 'initialize')
-            nailpack.run_event(api, 'update')
+        nailpack.register(app=self.app)
+        apis = self.get_apis()
+        for api in apis:
+            nailpack.register(api=api)
+        nailpack.run_event('validate', apis=apis, app=self.app)
+        nailpack.run_event('configure', apis=apis, app=self.app)
+        nailpack.run_event('initialize', apis=apis, app=self.app)
+        nailpack.run_event('update', apis=apis, app=self.app)
 
     def get_apis(self):
         apis = list()
         for key in pubkeys(self.app):
-            setattr(self.app, 'name', key)
-            apis.append(getattr(self.app, key))
+            if not key == 'config':
+                setattr(self.app, 'name', key)
+                apis.append(getattr(self.app, key))
         return apis

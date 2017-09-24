@@ -1,0 +1,3 @@
+nailpacks = [
+    'nailpack-flask'
+]
