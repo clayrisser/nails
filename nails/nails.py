@@ -1,4 +1,4 @@
-import nailpacks
+import nailpack
 import pydash as _
 from helpers import pubkeys
 
@@ -9,14 +9,15 @@ class Nails():
     def start(self):
         for api in self.get_apis():
             for route in api.config.routes:
-                nailpacks.register(api.config.main.nailpacks)
-        nailpacks.run_event('validate')
-        nailpacks.run_event('configure')
-        nailpacks.run_event('initialize')
-        nailpacks.run_event('update')
+                nailpack.register(api)
+            nailpack.run_event(api, 'validate')
+            nailpack.run_event(api, 'configure')
+            nailpack.run_event(api, 'initialize')
+            nailpack.run_event(api, 'update')
 
     def get_apis(self):
         apis = list()
         for key in pubkeys(self.app):
+            setattr(self.app, 'name', key)
             apis.append(getattr(self.app, key))
         return apis
