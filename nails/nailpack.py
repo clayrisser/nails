@@ -3,11 +3,11 @@ from inspect import getargspec
 import helpers
 from pydash import _
 
-def register(app=None, api=None, nailpack_name=None):
+def register(app, api=None, nailpack_name=None):
     if nailpack_name:
         return register_nailpack(app, api, nailpack_name)
     nailpacks = list()
-    app_api = (app if app else api)
+    app_api = (app if not api else api)
     for nailpack_name in app_api.config.main.nailpacks:
         nailpack = register_nailpack(app, api, nailpack_name)
         nailpacks.append(nailpack)
