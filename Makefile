@@ -73,7 +73,7 @@ freeze:
 
 .PHONY: clean
 clean: clean_data
-	-@ rm -rf ./env/ ./*.log ./*.log.* ./nails.egg-info/ ./dist/ ./build/ &>/dev/null || true
+	-@ rm -rf ./*.pyc ./*/*.pyc ./*/*/*.pyc ./env/ ./*.log ./*.log.* ./nails.egg-info/ ./dist/ ./build/ &>/dev/null || true
 	@echo cleaned
 .PHONY: clean_data
 clean_data:
