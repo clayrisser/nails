@@ -55,6 +55,9 @@ A ridiculous amount of coffee was consumed in the process of building this proje
 
 ## Changelog
 
+0.2.0 (2017-10-09)
+* Added nailpack support
+
 0.1.0 (2017-08-13)
 * Beta release
 

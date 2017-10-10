@@ -62,7 +62,7 @@ pip: dist
 	@echo published to pip
 
 .PHONY: publish
-publish: push pip
+publish: pip
 	@twine upload dist/*
 	@echo published
 
