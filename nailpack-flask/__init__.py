@@ -5,7 +5,7 @@ import routes
 import pydash as _
 
 class Nailpack(Nailpack):
-    level_override = 'app_as_api'
+    level_override = 'app'
 
     def __init__(self):
         pass
