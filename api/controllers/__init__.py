@@ -1,2 +1,1 @@
-import user_controller
-import auth_controller
+import default_controller
